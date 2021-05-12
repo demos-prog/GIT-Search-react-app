@@ -8,7 +8,7 @@ export default function Repos(props) {
   let [firstElOfPage, setFirstElOfPage] = useState(0);
   let [totalEls, setTotalEls] = useState(0);
   let [numOfElems, setNumOfElems] = useState(4);
-  let [inp, setInp] = useState('');
+  let [inp, setInp] = useState("");
 
   useEffect(() => {
     async function getRepos() {
@@ -89,11 +89,13 @@ export default function Repos(props) {
           </ButtonNext>
         </FooterBtns>
       </Reposits>
-      <Form onSubmit={(e)=>{
-        e.preventDefault();
-        setNumOfElems(inp);
-        setInp('');
-      }}>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setNumOfElems(inp);
+          setInp("");
+        }}
+      >
         <Input
           type="text"
           value={inp}
