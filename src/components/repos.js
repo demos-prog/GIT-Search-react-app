@@ -7,7 +7,8 @@ export default function Repos(props) {
   let [btns, setBtns] = useState(null);
   let [firstElOfPage, setFirstElOfPage] = useState(0);
   let [totalEls, setTotalEls] = useState(0);
-  const numOfElems = 4;
+  let [numOfElems, setNumOfElems] = useState(4);
+  let [inp, setInp] = useState('');
 
   useEffect(() => {
     async function getRepos() {
@@ -56,44 +57,65 @@ export default function Repos(props) {
 
       setBtns(listOfButtons);
     });
-  }, [props.user, firstElOfPage]);
+  }, [props.user, firstElOfPage, numOfElems]);
 
   return (
-    <Reposits>
-      <Wrapp>{reposits}</Wrapp>
-      <FooterBtns>
-        <FooterText>
-          {firstElOfPage + 1}-{firstElOfPage + 4} of {props.user.public_repos}{" "}
-          items
-        </FooterText>
-        <ButtonPrev
-          onClick={() => {
-            setFirstElOfPage((prev) => {
-              return prev > 0 ? prev - numOfElems : null;
-            });
-          }}
-        >
-          Prev
-        </ButtonPrev>
-        {btns}
-        <ButtonNext
-          onClick={() => {
-            setFirstElOfPage((prev) => {
-              return prev < totalEls - numOfElems ? prev + numOfElems : null;
-            });
-          }}
-        >
-          Next
-        </ButtonNext>
-      </FooterBtns>
-    </Reposits>
+    <>
+      <Reposits>
+        <Wrapp>{reposits}</Wrapp>
+        <FooterBtns>
+          <FooterText>
+            {firstElOfPage + 1}-{firstElOfPage + 4} of {props.user.public_repos}{" "}
+            items
+          </FooterText>
+          <ButtonPrev
+            onClick={() => {
+              setFirstElOfPage((prev) => {
+                return prev > 0 ? prev - numOfElems : null;
+              });
+            }}
+          >
+            Prev
+          </ButtonPrev>
+          {btns}
+          <ButtonNext
+            onClick={() => {
+              setFirstElOfPage((prev) => {
+                return prev < totalEls - numOfElems ? prev + numOfElems : null;
+              });
+            }}
+          >
+            Next
+          </ButtonNext>
+        </FooterBtns>
+      </Reposits>
+      <Form onSubmit={(e)=>{
+        e.preventDefault();
+        setNumOfElems(inp);
+        setInp('');
+      }}>
+        <Input
+          type="text"
+          value={inp}
+          onChange={(e) => setInp(+e.target.value)}
+          placeholder="Number of Items on page"
+        ></Input>
+      </Form>
+    </>
   );
 }
 
 const Reposits = styled.div``;
 const Wrapp = styled.div`
-  ${'' /* min-height: 520px; */}
   margin-bottom: 40px;
+`;
+
+const Form = styled.form`
+  margin-top: 20px;
+`;
+
+const Input = styled.input`
+  padding: 5px 10px;
 `;
 
 const FooterBtns = styled.div`
