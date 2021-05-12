@@ -65,7 +65,7 @@ export default function Repos(props) {
         <Wrapp>{reposits}</Wrapp>
         <FooterBtns>
           <FooterText>
-            {firstElOfPage + 1}-{firstElOfPage + 4} of {props.user.public_repos}{" "}
+            {firstElOfPage + 1}-{firstElOfPage + numOfElems} of {props.user.public_repos}{" "}
             items
           </FooterText>
           <ButtonPrev
