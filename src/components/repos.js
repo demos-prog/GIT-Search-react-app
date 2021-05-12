@@ -9,13 +9,13 @@ export default function Repos(props) {
   let [totalEls, setTotalEls] = useState(0);
   const numOfElems = 4;
 
-  async function getRepos() {
-    return (
-      await fetch(`https://api.github.com/users/${props.user.login}/repos`)
-    ).json();
-  }
-
   useEffect(() => {
+    async function getRepos() {
+      return (
+        await fetch(`https://api.github.com/users/${props.user.login}/repos`)
+      ).json();
+    }
+
     getRepos().then((reps) => {
       let list = reps
         .slice(firstElOfPage, firstElOfPage + numOfElems)
