@@ -6,7 +6,7 @@ export default function Header(props) {
 
   async function getUser(name) {
     let fch = await fetch(`https://api.github.com/users/${name}`);
-    props.setStatus(fch.ok);
+    props.setStatus(!fch.ok);
     return fch.json();
   }
 

@@ -12,7 +12,7 @@ function App() {
     <>
       <Header setUser={setUser} setStatus={setStatus}/>
 
-      {!status ? (
+      {status ? (
         <StartBody>
           <div>
             <img src={"/user-not-found.png"} alt="user-not-found"></img>
