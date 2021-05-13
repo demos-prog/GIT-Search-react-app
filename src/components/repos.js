@@ -46,7 +46,7 @@ export default function Repos(props) {
         return (
           <button
             className={act === index ? "active" : null}
-            style={{ padding: 10,margin: 5, cursor: "pointer" }}
+            style={{ padding: 10, margin: 5, cursor: "pointer" }}
             key={nanoid()}
             onClick={() => {
               setFirstElOfPage(index * numOfElems);
@@ -76,6 +76,9 @@ export default function Repos(props) {
               setFirstElOfPage((prev) => {
                 return prev > 0 ? prev - numOfElems : null;
               });
+              if (act > 0) {
+                setAct((prev) => prev - 1);
+              }
             }}
           >
             Prev
@@ -86,6 +89,11 @@ export default function Repos(props) {
               setFirstElOfPage((prev) => {
                 return prev < totalEls - numOfElems ? prev + numOfElems : null;
               });
+              if (act < Math.ceil(totalEls / numOfElems)- 1) {
+                setAct((prev) => prev + 1);
+              } else {
+                setAct(0);
+              }
             }}
           >
             Next
