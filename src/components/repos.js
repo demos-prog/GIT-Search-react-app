@@ -9,6 +9,7 @@ export default function Repos(props) {
   let [totalEls, setTotalEls] = useState(0);
   let [numOfElems, setNumOfElems] = useState(4);
   let [inp, setInp] = useState("");
+  let [act, setAct] = useState(0);
 
   useEffect(() => {
     async function getRepos() {
@@ -44,10 +45,12 @@ export default function Repos(props) {
       const listOfButtons = buttons.map((item, index) => {
         return (
           <button
-            style={{ padding: 10, cursor: "pointer" }}
+            className={act === index ? "active" : null}
+            style={{ padding: 10,margin: 5, cursor: "pointer" }}
             key={nanoid()}
             onClick={() => {
               setFirstElOfPage(index * numOfElems);
+              setAct(index);
             }}
           >
             {item}
@@ -57,7 +60,7 @@ export default function Repos(props) {
 
       setBtns(listOfButtons);
     });
-  }, [props.user, firstElOfPage, numOfElems]);
+  }, [props.user, firstElOfPage, numOfElems, act]);
 
   return (
     <>
@@ -65,8 +68,8 @@ export default function Repos(props) {
         <Wrapp>{reposits}</Wrapp>
         <FooterBtns>
           <FooterText>
-            {firstElOfPage + 1}-{firstElOfPage + numOfElems} of {props.user.public_repos}{" "}
-            items
+            {firstElOfPage + 1}-{firstElOfPage + numOfElems} of{" "}
+            {props.user.public_repos} items
           </FooterText>
           <ButtonPrev
             onClick={() => {
@@ -122,14 +125,17 @@ const Input = styled.input`
 
 const FooterBtns = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const ButtonPrev = styled.button`
   margin: 0 20px;
+  height: 40px;
   cursor: pointer;
 `;
 const ButtonNext = styled.button`
   margin: 0 20px;
+  height: 40px;
   cursor: pointer;
 `;
 
