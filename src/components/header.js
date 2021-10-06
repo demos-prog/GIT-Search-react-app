@@ -37,6 +37,9 @@ export default function Header(props) {
 }
 
 let Wrapper = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 100;
   padding: 0 30px;
   height: 72px;
   background-color: #0064eb;
