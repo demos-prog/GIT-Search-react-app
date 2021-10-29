@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import styled from "styled-components";
-import "./App.css";
 import Header from "./components/header";
-import Repos from "./components/repos";
+import spinner from "./components/images/Spin-1s-200px.svg";
+import "./App.css";
+
+const Repos = React.lazy(() => import("./components/repos"));
 
 function App() {
   let [user, setUser] = useState(null);
@@ -10,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Header setUser={setUser} setStatus={setStatus}/>
+      <Header setUser={setUser} setStatus={setStatus} />
 
       {status ? (
         <StartBody>
@@ -72,12 +74,18 @@ function App() {
 
           <RightSide>
             <NumberOfRepos>Repositories ({user.public_repos})</NumberOfRepos>
-            <Repos user={user}></Repos>
+            <Suspense
+              fallback={
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img src={spinner} alt="Loading..."></img>
+                </div>
+              }
+            >
+              <Repos user={user}></Repos>
+            </Suspense>
           </RightSide>
         </Body>
       )}
-      
-   
     </>
   );
 }
