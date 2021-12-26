@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <Header setUser={setUser} setStatus={setStatus}/>
+      <Header setUser={setUser} setStatus={setStatus} />
 
       {status ? (
         <StartBody>
@@ -70,14 +70,12 @@ function App() {
             </Followers>
           </LeftSide>
 
-          <RightSide>
+          <div>
             <NumberOfRepos>Repositories ({user.public_repos})</NumberOfRepos>
             <Repos user={user}></Repos>
-          </RightSide>
+          </div>
         </Body>
       )}
-      
-   
     </>
   );
 }
@@ -95,10 +93,6 @@ const StartBody = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const RightSide = styled.div`
-  flex: 1 1 65%;
 `;
 
 const NumberOfRepos = styled.div`

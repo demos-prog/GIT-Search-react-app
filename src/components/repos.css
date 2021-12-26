@@ -1,0 +1,39 @@
+.repository {
+  max-width: 80vw;
+  padding: 24px 32px;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  margin: 0 20px;
+  height: 40px;
+  cursor: pointer;
+}
+
+#navBtnsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .repository {
+    padding: 10px;
+  }
+
+  .prevNextBtns {
+    flex: 1 1 5%;
+    margin: auto;
+  }
+
+  #numbersOfPageWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

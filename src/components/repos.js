@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import "./repos.css";
 
 export default function Repos(props) {
   let [reposits, setReposits] = useState(null);
@@ -23,7 +24,7 @@ export default function Repos(props) {
         .slice(firstElOfPage, firstElOfPage + numOfElems)
         .map((item) => {
           return (
-            <RepItem key={nanoid()}>
+            <RepItem className="repository" key={nanoid()}>
               <RepItemName target="_blank" href={item.html_url}>
                 {item.name}
               </RepItemName>
@@ -66,41 +67,47 @@ export default function Repos(props) {
     <>
       <Reposits>
         <Wrapp>{reposits}</Wrapp>
-        <FooterBtns>
+        <div>
           <FooterText>
             {firstElOfPage + 1}-{firstElOfPage + numOfElems} of{" "}
             {props.user.public_repos} items
           </FooterText>
-          <ButtonPrev
-            onClick={() => {
-              setFirstElOfPage((prev) => {
-                return prev > 0 ? prev - numOfElems : null;
-              });
-              if (act > 0) {
-                setAct((prev) => prev - 1);
-              }
-            }}
-          >
-            Prev
-          </ButtonPrev>
-          {btns}
-          <ButtonNext
-            onClick={() => {
-              setFirstElOfPage((prev) => {
-                return prev < totalEls - numOfElems ? prev + numOfElems : null;
-              });
-              if (act < Math.ceil(totalEls / numOfElems)- 1) {
-                setAct((prev) => prev + 1);
-              } else {
-                setAct(0);
-              }
-            }}
-          >
-            Next
-          </ButtonNext>
-        </FooterBtns>
+          <div id="navBtnsWrapper">
+            <button
+              className="prevNextBtns"
+              onClick={() => {
+                setFirstElOfPage((prev) => {
+                  return prev > 0 ? prev - numOfElems : null;
+                });
+                if (act > 0) {
+                  setAct((prev) => prev - 1);
+                }
+              }}
+            >
+              Prev
+            </button>
+            <div id="numbersOfPageWrapper">{btns}</div>
+            <button
+              className="prevNextBtns"
+              onClick={() => {
+                setFirstElOfPage((prev) => {
+                  return prev < totalEls - numOfElems
+                    ? prev + numOfElems
+                    : null;
+                });
+                if (act < Math.ceil(totalEls / numOfElems) - 1) {
+                  setAct((prev) => prev + 1);
+                } else {
+                  setAct(0);
+                }
+              }}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </Reposits>
-      <Form
+      <form
         onSubmit={(e) => {
           e.preventDefault();
           setNumOfElems(inp);
@@ -113,7 +120,7 @@ export default function Repos(props) {
           onChange={(e) => setInp(+e.target.value)}
           placeholder="Number of Items on page"
         ></Input>
-      </Form>
+      </form>
     </>
   );
 }
@@ -123,28 +130,8 @@ const Wrapp = styled.div`
   margin-bottom: 40px;
 `;
 
-const Form = styled.form`
-  margin-top: 20px;
-`;
-
 const Input = styled.input`
   padding: 5px 10px;
-`;
-
-const FooterBtns = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ButtonPrev = styled.button`
-  margin: 0 20px;
-  height: 40px;
-  cursor: pointer;
-`;
-const ButtonNext = styled.button`
-  margin: 0 20px;
-  height: 40px;
-  cursor: pointer;
 `;
 
 const FooterText = styled.div`
@@ -161,7 +148,6 @@ const FooterText = styled.div`
 
 const RepItem = styled.div`
   border-radius: 10px;
-  padding: 24px 32px;
   background-color: #fff;
   margin-bottom: 24px;
 `;
